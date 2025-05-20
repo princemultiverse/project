@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+      <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background: #f2f2f2;
+    }
+    input, select, button {
+      padding: 8px;
+      margin: 10px 0;
+      font-size: 16px;
+    }
+    .result {
+      margin-top: 20px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+  </style>
+</head>
+<body>
+    <h2>Animal / Bird Info Checker 🐦</h2>
+
+  <label>Animal Name:</label><br>
+  <input type="text" id="animalName" placeholder="e.g., Eagle"><br>
+
+  <label>Can Fly?</label><br>
+  <select id="canFly">
+    <option value="true">Yes</option>
+    <option value="false">No</option>
+  </select><br>
+
+  <button onclick="checkAnimal()">Check Info</button>
+
+  <div class="result" id="output"></div>
+
+  <script>
+    class Animal {
+      constructor(name) {
+        this.name = name;
+      }
+
+      eat() {
+        return `${this.name} only eats meat 🥩`;
+      }
+    }
+
+    class Bird extends Animal {
+      constructor(name, canFly) {
+        super(name);
+        this.canFly = canFly;
+      }
+
+      fly() {
+        if (this.canFly) {
+          return `${this.name} can fly high! 🕊️`;
+        } else {
+          return `${this.name} can't fly 🐧`;
+        }
+      }
+    }
+
+    function checkAnimal() {
+      const name = document.getElementById("animalName").value;
+      const canFly = document.getElementById("canFly").value === "true";
+
+      if (!name) {
+        document.getElementById("output").innerHTML = "❗ Please enter a name.";
+        return;
+      }
+
+      const bird = new Bird(name, canFly);
+      const eatResult = bird.eat();
+      const flyResult = bird.fly();
+
+      document.getElementById("output").innerHTML = `<strong>${eatResult}</strong><br>${flyResult}`;
+    }
+  </script>
+</body>
+</html>
